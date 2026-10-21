@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexandre | Desenvolvedor Full-Stack & Especialista em Integrações</title>
+    <meta name="description" content="Desenvolvedor Full-Stack especializado em APIs, Integrações Fiscais (NFC-e/NF-e), Automações n8n e manutenção de sistemas legados.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#090d16',
+                            card: '#111827',
+                            border: '#1f2937'
+                        },
+                        accent: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            blue: '#3b82f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Lucide Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #f3f4f6;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-grid antialiased selection:bg-cyan-500 selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 border-b border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-dark-bg rounded-[10px] flex items-center justify-center font-bold text-cyan-400 code-font">
+                        &lt;A/&gt;
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg tracking-tight text-white group-hover:text-cyan-400 transition-colors">Alexandre</span>
+                    <span class="text-xs text-gray-400 code-font">Full-Stack & Systems</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#servicos" class="hover:text-cyan-400 transition-colors">Serviços</a>
+                <a href="#cases" class="hover:text-cyan-400 transition-colors">Soluções</a>
+                <a href="#stack" class="hover:text-cyan-400 transition-colors">Tech Stack</a>
+                <a href="#calculadora" class="hover:text-cyan-400 transition-colors">Estimador de Projeto</a>
+                <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="https://wa.me/5519982888265?text=Ol%C3%A1%20Alexandre!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." 
+                   target="_blank" 
+                   rel="noopener"
+                   class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-semibold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20 hover:scale-105">
+                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                    <span>Conversar no WhatsApp</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-gray-800 bg-dark-bg/95 px-4 pt-2 pb-6 space-y-3">
+            <a href="#servicos" class="block text-gray-300 hover:text-cyan-400 py-2">Serviços</a>
+            <a href="#cases" class="block text-gray-300 hover:text-cyan-400 py-2">Soluções Entregues</a>
+            <a href="#stack" class="block text-gray-300 hover:text-cyan-400 py-2">Tech Stack</a>
+            <a href="#calculadora" class="block text-gray-300 hover:text-cyan-400 py-2">Estimador de Projeto</a>
+            <a href="#faq" class="block text-gray-300 hover:text-cyan-400 py-2">Perguntas Frequentes</a>
+            <a href="https://wa.me/5519982888265?text=Ol%C3%A1%20Alexandre!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." 
+               target="_blank" 
+               class="flex items-center justify-center gap-2 bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl w-full mt-4">
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+                <span>Chamar no WhatsApp</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                
+                <!-- Hero Content Column -->
+                <div class="flex-1 text-center lg:text-left space-y-6">
+                    
+                    <!-- Availability Pill -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Disponível para novos projetos & freelas</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                        Desenvolvedor <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-teal-300">Full-Stack</span> & Especialista em Integrações
+                    </h1>
+
+                    <!-- Subtitle / Value Proposition -->
+                    <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Elimino gargalos técnicos em empresas e software houses. Desenvolvimento de APIs robustas, atualização fiscal SEFAZ (NFC-e / NF-e), automações n8n e refatoração de código legado com prazo garantido.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="https://wa.me/5519982888265?text=Ol%C3%A1%20Alexandre!%20Preciso%20de%20ajuda%20com%20um%20projeto/demanda%20técnica." 
+                           target="_blank"
+                           rel="noopener"
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-cyan-500/25 transition-all hover:scale-105">
+                            <i data-lucide="zap" class="w-5 h-5 text-yellow-300"></i>
+                            <span>Solicitar Orçamento Rápido</span>
+                        </a>
+
+                        <a href="#calculadora" 
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-dark-card hover:bg-gray-800 text-gray-200 font-semibold px-6 py-4 rounded-xl border border-gray-700 transition-all">
+                            <i data-lucide="calculator" class="w-5 h-5 text-cyan-400"></i>
+                            <span>Simular Estimativa de Custo</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Metrics Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-800/80 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl font-bold text-white code-font">100%</p>
+                            <p class="text-xs text-gray-400">Foco em Solução de Problemas</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-cyan-400 code-font">SEFAZ</p>
+                            <p class="text-xs text-gray-400">NFC-e 4.0 & NF-e Prontos</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-emerald-400 code-font">&lt;24h</p>
+                            <p class="text-xs text-gray-400">Resposta Inicial e Análise</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Terminal Window -->
+                <div class="w-full lg:w-[480px]">
+                    <div class="glass-card rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+                        <!-- Terminal Header -->
+                        <div class="bg-gray-900/90 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                            </div>
+                            <span class="text-xs text-gray-400 code-font">alexandre@dev-environment:~</span>
+                            <i data-lucide="terminal" class="w-4 h-4 text-gray-500"></i>
+                        </div>
+                        
+                        <!-- Terminal Body -->
+                        <div class="p-5 code-font text-xs sm:text-sm space-y-4 text-gray-300">
+                            <div>
+                                <span class="text-emerald-400">$</span> <span class="text-cyan-300">cat</span> profile.json
+                            </div>
+                            <div class="pl-4 text-gray-400 space-y-1">
+                                <p>{ <span class="text-purple-400">"name"</span>: <span class="text-emerald-300">"Alexandre"</span>,</p>
+                                <p>&nbsp;&nbsp;<span class="text-purple-400">"role"</span>: <span class="text-emerald-300">"Full-Stack Software Engineer"</span>,</p>
+                                <p>&nbsp;&nbsp;<span class="text-purple-400">"specialties"</span>: [</p>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-300">"PHP / Laravel"</span>,</p>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-300">"Node.js / TypeScript"</span>,</p>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-300">"SEFAZ Fiscal Webhooks"</span>,</p>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-300">"n8n Automations & Docker"</span></p>
+                                <p>&nbsp;&nbsp;],</p>
+                                <p>&nbsp;&nbsp;<span class="text-purple-400">"status"</span>: <span class="text-emerald-400">"PRONTO_PARA_RESOLVER_PEPINOS"</span> }</p>
+                            </div>
+
+                            <div class="pt-2">
+                                <span class="text-emerald-400">$</span> <span class="text-cyan-300">./check_sefaz_status.sh</span>
+                            </div>
+                            <div class="pl-4 text-emerald-400 flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                                <span>[OK] Schemas XML NFC-e v4.0 Validados</span>
+                            </div>
+                            
+                            <div class="pt-2 flex items-center justify-between text-gray-500 text-xs border-t border-gray-800">
+                                <span>Git Branch: main</span>
+                                <span class="text-cyan-400 animate-pulse">● Executando sem erros</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE SERVICES SECTION -->
+    <section id="servicos" class="py-20 bg-dark-bg/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 code-font mb-3">Especialidades & Serviços</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Como posso destravar o seu projeto ou empresa?</p>
+                <p class="mt-4 text-gray-400">Soluções focadas em retorno financeiro, segurança fiscal e estabilidade de código.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Service Card 1 -->
+                <div class="glass-card rounded-2xl p-6 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="receipt" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Integrações Fiscais & SEFAZ</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            Atualização e implementação de módulos de **NFC-e 4.0** e **NF-e**. Correção de validação de XML, QR Code v2.0, regras de troco/pagamento e certificados A1/A3.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4 code-font">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> PHP / Laravel / Native</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Homologação & Produção</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="glass-card rounded-2xl p-6 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="server" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">APIs REST & Backend</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            Construção de APIs escaláveis e microsserviços seguros. Integrações com gateways de pagamento (Asaas, Mercado Pago), CRMs e bancos de dados SQL.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4 code-font">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Node.js / TypeScript / Fastify</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> PostgreSQL / Eloquent ORM</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="glass-card rounded-2xl p-6 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="workflow" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Automações & Webhooks</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            Criação de pipelines automatizados com n8n, webhooks e Docker. Conexão de sistemas heterogêneos para eliminar tarefas manuais e repetitivas.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4 code-font">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> n8n Workflows Customizados</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Docker & Containers</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="glass-card rounded-2xl p-6 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="bug" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Manutenção & Código Legado</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            Sabe aquele bug antigo no sistema em PHP que ninguém consegue resolver? Identifico gargalos de performance, corrijo falhas e refatoro código com segurança.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4 code-font">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Refatoração PHP / JS</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Diagnóstico de Performance</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED CASES / SOLUÇÕES ENTREGUES -->
+    <section id="cases" class="py-20 border-t border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 code-font mb-3">Soluções Entregues</h2>
+                    <p class="text-3xl font-extrabold text-white">Casos Práticos de Resolução de Problemas</p>
+                </div>
+                <p class="text-gray-400 text-sm max-w-md">
+                    Exemplos reais de demandas técnicas estruturadas com foco em prazos rigorosos e zero downtime em produção.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Case 1 -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs code-font">Módulo Fiscal SEFAZ</span>
+                            <span class="text-xs text-gray-500 code-font">PHP / XML</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Atualização NFC-e Layout 4.0</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Adequação completa de ERP comercial em PHP para a versão 4.0 da SEFAZ. Validação dos schemas XML, tratamento de rejeições comuns, atualização da geração de QR Code v2.0 e homologação direta.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-4 mt-2">
+                        <p class="text-xs text-emerald-400 flex items-center gap-1.5 font-medium">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Resultado: 100% de notas autorizadas em produção.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs code-font">Automação B2B</span>
+                            <span class="text-xs text-gray-500 code-font">n8n / Docker</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Pipeline de Webhooks & Pagamentos</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Construção de ecossistema de sincronização em tempo real entre gateway de pagamento (Pix/Cartão) e banco PostgreSQL via n8n, liberando acessos instantaneamente e emitindo alertas via Telegram.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-4 mt-2">
+                        <p class="text-xs text-emerald-400 flex items-center gap-1.5 font-medium">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Resultado: Redução de 95% na intervenção manual.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs code-font">Backend / Node.js</span>
+                            <span class="text-xs text-gray-500 code-font">TypeScript / Fastify</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Refatoração de API & Otimização SQL</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Reformulação de rotas críticas com alto tempo de resposta. Reestruturação das queries no PostgreSQL e aplicação de cache, reduzindo o consumo de memória e tempo de execução.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-4 mt-2">
+                        <p class="text-xs text-emerald-400 flex items-center gap-1.5 font-medium">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Resultado: Redução do tempo de resposta de 3.2s para 180ms.</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK SHOWCASE WITH INTERACTIVE FILTERS -->
+    <section id="stack" class="py-20 bg-dark-bg/60 border-t border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 code-font mb-3">Tecnologias Dominadas</h2>
+                <p class="text-3xl font-extrabold text-white">Ferramentas para Cada Camada da Solução</p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-12" id="stack-filters">
+                <button data-filter="all" class="stack-filter-btn active px-4 py-2 rounded-xl text-xs font-semibold code-font bg-cyan-500 text-black transition-all">Todas</button>
+                <button data-filter="backend" class="stack-filter-btn px-4 py-2 rounded-xl text-xs font-semibold code-font bg-dark-card border border-gray-800 text-gray-300 hover:border-cyan-500/50 transition-all">Backend & PHP</button>
+                <button data-filter="frontend" class="stack-filter-btn px-4 py-2 rounded-xl text-xs font-semibold code-font bg-dark-card border border-gray-800 text-gray-300 hover:border-cyan-500/50 transition-all">Frontend & React</button>
+                <button data-filter="devops" class="stack-filter-btn px-4 py-2 rounded-xl text-xs font-semibold code-font bg-dark-card border border-gray-800 text-gray-300 hover:border-cyan-500/50 transition-all">DevOps & Banco</button>
+                <button data-filter="integrations" class="stack-filter-btn px-4 py-2 rounded-xl text-xs font-semibold code-font bg-dark-card border border-gray-800 text-gray-300 hover:border-cyan-500/50 transition-all">Integrações & Fiscais</button>
+            </div>
+
+            <!-- Tech Badges Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="stack-grid">
+                
+                <div class="stack-item backend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="code-2" class="w-6 h-6 text-purple-400"></i>
+                    <div><p class="text-sm font-bold text-white">PHP</p><p class="text-[10px] text-gray-400">8.x / Legado</p></div>
+                </div>
+
+                <div class="stack-item backend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="layers" class="w-6 h-6 text-red-400"></i>
+                    <div><p class="text-sm font-bold text-white">Laravel</p><p class="text-[10px] text-gray-400">Framework</p></div>
+                </div>
+
+                <div class="stack-item backend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="file-json" class="w-6 h-6 text-emerald-400"></i>
+                    <div><p class="text-sm font-bold text-white">Node.js</p><p class="text-[10px] text-gray-400">Runtime JS</p></div>
+                </div>
+
+                <div class="stack-item backend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="file-code" class="w-6 h-6 text-blue-400"></i>
+                    <div><p class="text-sm font-bold text-white">TypeScript</p><p class="text-[10px] text-gray-400">Tipagem Forte</p></div>
+                </div>
+
+                <div class="stack-item frontend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="atom" class="w-6 h-6 text-cyan-400"></i>
+                    <div><p class="text-sm font-bold text-white">React / Next</p><p class="text-[10px] text-gray-400">SPAs & SSR</p></div>
+                </div>
+
+                <div class="stack-item frontend glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="palette" class="w-6 h-6 text-teal-400"></i>
+                    <div><p class="text-sm font-bold text-white">Tailwind</p><p class="text-[10px] text-gray-400">CSS Moderno</p></div>
+                </div>
+
+                <div class="stack-item devops glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="container" class="w-6 h-6 text-blue-500"></i>
+                    <div><p class="text-sm font-bold text-white">Docker</p><p class="text-[10px] text-gray-400">Containers</p></div>
+                </div>
+
+                <div class="stack-item devops glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="database" class="w-6 h-6 text-cyan-300"></i>
+                    <div><p class="text-sm font-bold text-white">PostgreSQL</p><p class="text-[10px] text-gray-400">SQL Relacional</p></div>
+                </div>
+
+                <div class="stack-item devops glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="hard-drive" class="w-6 h-6 text-amber-400"></i>
+                    <div><p class="text-sm font-bold text-white">MySQL</p><p class="text-[10px] text-gray-400">SQL Relacional</p></div>
+                </div>
+
+                <div class="stack-item integrations glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="workflow" class="w-6 h-6 text-purple-400"></i>
+                    <div><p class="text-sm font-bold text-white">n8n</p><p class="text-[10px] text-gray-400">Automações</p></div>
+                </div>
+
+                <div class="stack-item integrations glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-emerald-400"></i>
+                    <div><p class="text-sm font-bold text-white">SEFAZ XML</p><p class="text-[10px] text-gray-400">NFC-e / NF-e</p></div>
+                </div>
+
+                <div class="stack-item integrations glass-card p-4 rounded-xl flex items-center gap-3 border border-gray-800">
+                    <i data-lucide="webhook" class="w-6 h-6 text-yellow-400"></i>
+                    <div><p class="text-sm font-bold text-white">Webhooks</p><p class="text-[10px] text-gray-400">APIs & Gateways</p></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE ESTIMATOR & CALCULATOR TOOL -->
+    <section id="calculadora" class="py-20 border-t border-gray-800/80 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-400 code-font mb-3">Simulador Transparente</h2>
+                <p class="text-3xl font-extrabold text-white">Monte e Estime o Escopo do Seu Projeto</p>
+                <p class="mt-3 text-sm text-gray-400">Selecione o tipo de demanda para ter uma noção imediata de prazo estimado e envie o resumo direto no WhatsApp.</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-10 border border-gray-800 shadow-2xl">
+                <form id="calculator-form" onsubmit="return false;" class="space-y-8">
+                    
+                    <!-- Step 1: Project Type -->
+                    <div>
+                        <label class="block text-sm font-semibold text-white mb-4 code-font">1. Qual o tipo de projeto ou necessidade?</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <label class="calc-type-option cursor-pointer glass-card p-4 rounded-xl border border-gray-800 flex flex-col justify-between hover:border-cyan-500 transition-all">
+                                <input type="radio" name="project_type" value="sefaz" class="hidden" checked>
+                                <div class="flex items-center justify-between mb-2">
+                                    <i data-lucide="receipt" class="w-5 h-5 text-cyan-400"></i>
+                                    <span class="w-4 h-4 rounded-full border border-gray-600 radio-dot"></span>
+                                </div>
+                                <p class="text-sm font-bold text-white">NFC-e 4.0 / SEFAZ</p>
+                                <p class="text-[11px] text-gray-400 mt-1">Atualização fiscal ou integração de notas</p>
+                            </label>
+
+                            <label class="calc-type-option cursor-pointer glass-card p-4 rounded-xl border border-gray-800 flex flex-col justify-between hover:border-cyan-500 transition-all">
+                                <input type="radio" name="project_type" value="api" class="hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i data-lucide="webhook" class="w-5 h-5 text-emerald-400"></i>
+                                    <span class="w-4 h-4 rounded-full border border-gray-600 radio-dot"></span>
+                                </div>
+                                <p class="text-sm font-bold text-white">API / Webhook / Backend</p>
+                                <p class="text-[11px] text-gray-400 mt-1">Integração de pagamento ou microsserviço</p>
+                            </label>
+
+                            <label class="calc-type-option cursor-pointer glass-card p-4 rounded-xl border border-gray-800 flex flex-col justify-between hover:border-cyan-500 transition-all">
+                                <input type="radio" name="project_type" value="bugfix" class="hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i data-lucide="bug" class="w-5 h-5 text-amber-400"></i>
+                                    <span class="w-4 h-4 rounded-full border border-gray-600 radio-dot"></span>
+                                </div>
+                                <p class="text-sm font-bold text-white">Bugfix / Legado</p>
+                                <p class="text-[11px] text-gray-400 mt-1">Manutenção em PHP/Node existente</p>
+                            </label>
+
+                            <label class="calc-type-option cursor-pointer glass-card p-4 rounded-xl border border-gray-800 flex flex-col justify-between hover:border-cyan-500 transition-all">
+                                <input type="radio" name="project_type" value="fullapp" class="hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i data-lucide="layers" class="w-5 h-5 text-purple-400"></i>
+                                    <span class="w-4 h-4 rounded-full border border-gray-600 radio-dot"></span>
+                                </div>
+                                <p class="text-sm font-bold text-white">Sistema Completo</p>
+                                <p class="text-[11px] text-gray-400 mt-1">Aplicação Web Full-Stack do zero</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Complexity & Scope -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-white mb-3 code-font">2. Nível de Urgência</label>
+                            <select id="urgency-select" class="w-full bg-dark-bg border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-cyan-500">
+                                <option value="normal">Normal (Planejamento padrão)</option>
+                                <option value="alta">Alta (Preciso pra ontem / Sistema parado)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-white mb-3 code-font">3. Suporte Pós-Entrega Desejado</label>
+                            <select id="support-select" class="w-full bg-dark-bg border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-cyan-500">
+                                <option value="7d">7 Dias de Garantia (Padrão)</option>
+                                <option value="30d">30 Dias de Acompanhamento</option>
+                                <option value="recorrente">Suporte Mensal Recorrente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Live Dynamic Output Panel -->
+                    <div class="bg-dark-bg/90 rounded-xl p-6 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-1 text-center md:text-left">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider code-font">Estimativa de Prazo & Entrega</span>
+                            <div class="text-2xl font-extrabold text-cyan-400" id="calc-time-output">3 a 7 Dias Úteis</div>
+                            <p class="text-xs text-gray-400" id="calc-summary-output">Com código testado em homologação + garantia pós-implantação.</p>
+                        </div>
+
+                        <button type="button" id="send-whatsapp-calc" class="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20">
+                            <i data-lucide="message-square" class="w-5 h-5"></i>
+                            <span>Enviar Escopo no WhatsApp</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION (ACCORDION) -->
+    <section id="faq" class="py-20 bg-dark-bg/60 border-t border-gray-800/80">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 code-font mb-3">Dúvidas Frequentes</h2>
+                <p class="text-3xl font-extrabold text-white">Transparência em Todas as Etapas</p>
+            </div>
+
+            <div class="space-y-4">
+                
+                <div class="faq-item glass-card rounded-xl border border-gray-800 overflow-hidden">
+                    <button class="faq-toggle w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-cyan-400 transition-colors">
+                        <span>Como funciona o formato de contratação e pagamento?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-5 pt-0 text-sm text-gray-400 border-t border-gray-800/50 leading-relaxed">
+                        Trabalho com modelo de escopo fechado (50% de sinal na aprovação e 50% na entrega/validação) ou por pacote de horas para demandas contínuas. Aceito Pix ou transferência.
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card rounded-xl border border-gray-800 overflow-hidden">
+                    <button class="faq-toggle w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-cyan-400 transition-colors">
+                        <span>Como é garantido que a emissão da SEFAZ / NFC-e não vai parar meu caixa?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-5 pt-0 text-sm text-gray-400 border-t border-gray-800/50 leading-relaxed">
+                        Todo o código é exaustivamente testado primeiro no ambiente de homologação da SEFAZ com os certificados de teste. A virada para produção é agendada em horário de baixo movimento com acompanhamento em tempo real.
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card rounded-xl border border-gray-800 overflow-hidden">
+                    <button class="faq-toggle w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-cyan-400 transition-colors">
+                        <span>Você assina Acordo de Confidencialidade (NDA)?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-5 pt-0 text-sm text-gray-400 border-t border-gray-800/50 leading-relaxed">
+                        Sim, 100%. Seu código-fonte, dados de clientes e regras de negócio permanecem sob sigilo absoluto.
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card rounded-xl border border-gray-800 overflow-hidden">
+                    <button class="faq-toggle w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-cyan-400 transition-colors">
+                        <span>E se surgir algum bug após a entrega do projeto?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-5 pt-0 text-sm text-gray-400 border-t border-gray-800/50 leading-relaxed">
+                        Todos os projetos incluem garantia e suporte técnico sem custo adicional pós-entrega para correção de qualquer divergência em relação ao escopo combinado.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / FINAL CTA -->
+    <footer class="py-16 border-t border-gray-800 bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-white mb-2">Tem um problema técnico precisando de solução hoje?</h3>
+                    <p class="text-sm text-gray-400">Respondo rápido e avalio o código sem compromisso.</p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="https://wa.me/5519982888265?text=Ol%C3%A1%20Alexandre!%20Gostaria%20de%20falar%20sobre%20um%20projeto." 
+                       target="_blank" 
+                       rel="noopener"
+                       class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-all">
+                        <i data-lucide="message-square" class="w-5 h-5"></i>
+                        <span>Chamar no WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 code-font">
+                <p>© 2026 Alexandre — Full-Stack Developer. Todos os direitos reservados.</p>
+                
+                <div class="flex items-center gap-6">
+                    <a href="https://github.com" target="_blank" rel="noopener" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                        <i data-lucide="github" class="w-4 h-4"></i> GitHub
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
+                    </a>
+                    <a href="mailto:contato@alexandre.dev" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close Mobile Menu on Click Navigation
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Tech Stack Category Filtering
+        const filterBtns = document.querySelectorAll('.stack-filter-btn');
+        const stackItems = document.querySelectorAll('.stack-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-cyan-500', 'text-black');
+                    b.classList.add('bg-dark-card', 'text-gray-300');
+                });
+                
+                btn.classList.remove('bg-dark-card', 'text-gray-300');
+                btn.classList.add('bg-cyan-500', 'text-black');
+
+                const filter = btn.getAttribute('data-filter');
+
+                stackItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Interactive Project Calculator Logic
+        const calcForm = document.getElementById('calculator-form');
+        const calcTimeOutput = document.getElementById('calc-time-output');
+        const calcSummaryOutput = document.getElementById('calc-summary-output');
+        const sendWhatsappCalcBtn = document.getElementById('send-whatsapp-calc');
+
+        function updateCalculator() {
+            const selectedType = document.querySelector('input[name="project_type"]:checked').value;
+            const urgency = document.getElementById('urgency-select').value;
+            const support = document.getElementById('support-select').value;
+
+            let baseTime = "3 a 7 Dias Úteis";
+            let typeTitle = "NFC-e 4.0 / SEFAZ";
+
+            if (selectedType === 'sefaz') {
+                baseTime = urgency === 'alta' ? '7 a 10 Dias Úteis (Prioridade)' : '14 a 20 Dias Úteis';
+                typeTitle = "Integração/Atualização Fiscal SEFAZ (NFC-e 4.0)";
+            } else if (selectedType === 'api') {
+                baseTime = urgency === 'alta' ? '3 a 5 Dias Úteis' : '5 a 10 Dias Úteis';
+                typeTitle = "Desenvolvimento de API REST / Webhooks";
+            } else if (selectedType === 'bugfix') {
+                baseTime = urgency === 'alta' ? '24h a 48h (Urgência)' : '2 a 4 Dias Úteis';
+                typeTitle = "Manutenção de Bug / Código Legado";
+            } else if (selectedType === 'fullapp') {
+                baseTime = urgency === 'alta' ? '2 a 3 Semanas' : '3 a 5 Semanas';
+                typeTitle = "Desenvolvimento de Sistema Completo Full-Stack";
+            }
+
+            calcTimeOutput.textContent = baseTime;
+            calcSummaryOutput.textContent = `Escopo: ${typeTitle} | Suporte: ${support.toUpperCase()}`;
+
+            // Return pre-formatted text for WhatsApp
+            return encodeURIComponent(
+                `Olá Alexandre! Simulei meu projeto pelo seu portfólio:\n\n` +
+                `📌 *Tipo de Demanda:* ${typeTitle}\n` +
+                `⚡ *Urgência:* ${urgency.toUpperCase()}\n` +
+                `🛡️ *Suporte Desejado:* ${support}\n` +
+                `⏱️ *Prazo Estimado:* ${baseTime}\n\n` +
+                `Gostaria de agendar uma análise rápida do código/escopo.`
+            );
+        }
+
+        // Add Listeners to Calculator Elements
+        document.querySelectorAll('input[name="project_type"], #urgency-select, #support-select').forEach(elem => {
+            elem.addEventListener('change', updateCalculator);
+        });
+
+        // Trigger WhatsApp Button with Calculator Result
+        sendWhatsappCalcBtn.addEventListener('click', () => {
+            const formattedMessage = updateCalculator();
+            const whatsappUrl = `https://wa.me/5519982888265?text=${formattedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // FAQ Accordion Toggle Logic
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const content = faqItem.querySelector('.faq-content');
+                const icon = button.querySelector('i');
+
+                const isOpen = !content.classList.contains('hidden');
+
+                document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                document.querySelectorAll('.faq-toggle i').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                if (!isOpen) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
